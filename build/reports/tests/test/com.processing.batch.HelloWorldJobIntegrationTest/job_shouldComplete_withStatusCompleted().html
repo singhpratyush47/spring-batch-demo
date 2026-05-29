@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - job_shouldComplete_withStatusCompleted()</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<a class="breadcrumb" href="../index.html">all</a> &gt; 
+<a class="breadcrumb" href="index.html">com.processing.batch.HelloWorldJobIntegrationTest</a> &gt; 
+<span class="breadcrumb">job_shouldComplete_withStatusCompleted()</span>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="successGroup" href="#">Gradle Test Run :test</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Gradle Test Run :test</h2>
+<h1>job_shouldComplete_withStatusCompleted()</h1>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="" href="#">summary</a>
+</li>
+<li>
+<a class="" href="#">standard output</a>
+</li>
+</ul>
+<div class="tab">
+<h2>summary</h2>
+<div>
+<div class="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox">
+<div class="counter">0</div>
+<p>skipped</p>
+</div>
+</td>
+<td>
+<div class="infoBox duration">
+<div class="counter">0.736s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="tab">
+<h2>standard output</h2>
+<span class="code">
+<pre id="root-0-test-stdout-job_shouldComplete_withStatusCompleted()">2026-05-29T18:08:59.725+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] o.s.b.c.l.s.TaskExecutorJobLauncher      : Job: [SimpleJob: [name=helloWorldJob]] launched with the following parameters: [{'run.id':'{value=1780058339697, type=class java.lang.Long, identifying=true}'}]
+2026-05-29T18:08:59.738+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.b.listener.JobCompletionListener     : ▶  Job 'helloWorldJob' starting  | runId=1780058339697
+2026-05-29T18:08:59.744+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] o.s.batch.core.job.SimpleStepHandler     : Executing step: [helloWorldStep]
+2026-05-29T18:08:59.753+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=1, message=HELLO WORLD #1]
+2026-05-29T18:08:59.755+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=2, message=HELLO WORLD #2]
+2026-05-29T18:08:59.755+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=3, message=HELLO WORLD #3]
+2026-05-29T18:08:59.756+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [1 | HELLO WORLD #1]
+2026-05-29T18:08:59.756+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [2 | HELLO WORLD #2]
+2026-05-29T18:08:59.757+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [3 | HELLO WORLD #3]
+2026-05-29T18:08:59.759+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=4, message=HELLO WORLD #4]
+2026-05-29T18:08:59.760+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=5, message=HELLO WORLD #5]
+2026-05-29T18:08:59.760+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=6, message=HELLO WORLD #6]
+2026-05-29T18:08:59.760+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [4 | HELLO WORLD #4]
+2026-05-29T18:08:59.760+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [5 | HELLO WORLD #5]
+2026-05-29T18:08:59.761+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [6 | HELLO WORLD #6]
+2026-05-29T18:08:59.764+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=7, message=HELLO WORLD #7]
+2026-05-29T18:08:59.764+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=8, message=HELLO WORLD #8]
+2026-05-29T18:08:59.764+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=9, message=HELLO WORLD #9]
+2026-05-29T18:08:59.765+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [7 | HELLO WORLD #7]
+2026-05-29T18:08:59.765+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [8 | HELLO WORLD #8]
+2026-05-29T18:08:59.765+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [9 | HELLO WORLD #9]
+2026-05-29T18:08:59.769+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] o.s.batch.core.step.AbstractStep         : Step: [helloWorldStep] executed in 24ms
+2026-05-29T18:08:59.772+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.b.listener.JobCompletionListener     : ■  Job 'helloWorldJob' finished  | status=COMPLETED  | duration=42ms
+2026-05-29T18:08:59.776+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] o.s.b.c.l.s.TaskExecutorJobLauncher      : Job: [SimpleJob: [name=helloWorldJob]] completed with the following parameters: [{'run.id':'{value=1780058339697, type=class java.lang.Long, identifying=true}'}] and the following status: [COMPLETED] in 42ms
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-0-test-stdout-job_shouldComplete_withStatusCompleted()">Copy</button>
+</span>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.3.0</a> at 29 May 2026, 6:08:59 pm</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.processing.batch.HelloWorldJobIntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-29T12:38:56.584Z" hostname="PRATYUSH" time="3.266">
+  <properties/>
+  <testcase name="job_shouldComplete_withStatusCompleted()" classname="com.processing.batch.HelloWorldJobIntegrationTest" time="0.736"/>
+  <system-out><![CDATA[18:08:56.733 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.processing.batch.HelloWorldJobIntegrationTest]: HelloWorldJobIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:08:56.874 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.processing.batch.BatchApplication for test class com.processing.batch.HelloWorldJobIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2026-05-29T18:08:57.320+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.HelloWorldJobIntegrationTest   : Starting HelloWorldJobIntegrationTest using Java 17.0.12 with PID 19400 (started by singh in C:\Users\singh\OneDrive\Desktop\Preparation\POC\spring-batch-demo\spring-batch-demo)
+2026-05-29T18:08:57.321+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.HelloWorldJobIntegrationTest   : Running with Spring Boot v3.4.5, Spring v6.2.6
+2026-05-29T18:08:57.321+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.HelloWorldJobIntegrationTest   : The following 1 profile is active: "test"
+2026-05-29T18:08:58.187+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-29T18:08:58.370+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:batchdb user=SA
+2026-05-29T18:08:58.372+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-29T18:08:59.019+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:batchdb'
+2026-05-29T18:08:59.088+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.HelloWorldJobIntegrationTest   : Started HelloWorldJobIntegrationTest in 2.056 seconds (process running for 3.183)
+2026-05-29T18:08:59.725+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] o.s.b.c.l.s.TaskExecutorJobLauncher      : Job: [SimpleJob: [name=helloWorldJob]] launched with the following parameters: [{'run.id':'{value=1780058339697, type=class java.lang.Long, identifying=true}'}]
+2026-05-29T18:08:59.738+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.b.listener.JobCompletionListener     : ▶  Job 'helloWorldJob' starting  | runId=1780058339697
+2026-05-29T18:08:59.744+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] o.s.batch.core.job.SimpleStepHandler     : Executing step: [helloWorldStep]
+2026-05-29T18:08:59.753+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=1, message=HELLO WORLD #1]
+2026-05-29T18:08:59.755+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=2, message=HELLO WORLD #2]
+2026-05-29T18:08:59.755+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=3, message=HELLO WORLD #3]
+2026-05-29T18:08:59.756+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [1 | HELLO WORLD #1]
+2026-05-29T18:08:59.756+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [2 | HELLO WORLD #2]
+2026-05-29T18:08:59.757+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [3 | HELLO WORLD #3]
+2026-05-29T18:08:59.759+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=4, message=HELLO WORLD #4]
+2026-05-29T18:08:59.760+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=5, message=HELLO WORLD #5]
+2026-05-29T18:08:59.760+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=6, message=HELLO WORLD #6]
+2026-05-29T18:08:59.760+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [4 | HELLO WORLD #4]
+2026-05-29T18:08:59.760+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [5 | HELLO WORLD #5]
+2026-05-29T18:08:59.761+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [6 | HELLO WORLD #6]
+2026-05-29T18:08:59.764+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=7, message=HELLO WORLD #7]
+2026-05-29T18:08:59.764+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=8, message=HELLO WORLD #8]
+2026-05-29T18:08:59.764+05:30 DEBUG 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   processed → Greeting[id=9, message=HELLO WORLD #9]
+2026-05-29T18:08:59.765+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [7 | HELLO WORLD #7]
+2026-05-29T18:08:59.765+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [8 | HELLO WORLD #8]
+2026-05-29T18:08:59.765+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.batch.config.HelloWorldJobConfig     :   ✔ written → [9 | HELLO WORLD #9]
+2026-05-29T18:08:59.769+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] o.s.batch.core.step.AbstractStep         : Step: [helloWorldStep] executed in 24ms
+2026-05-29T18:08:59.772+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] c.p.b.listener.JobCompletionListener     : ■  Job 'helloWorldJob' finished  | status=COMPLETED  | duration=42ms
+2026-05-29T18:08:59.776+05:30  INFO 19400 --- [spring-batch-demo] [    Test worker] o.s.b.c.l.s.TaskExecutorJobLauncher      : Job: [SimpleJob: [name=helloWorldJob]] completed with the following parameters: [{'run.id':'{value=1780058339697, type=class java.lang.Long, identifying=true}'}] and the following status: [COMPLETED] in 42ms
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

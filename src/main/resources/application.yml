@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: spring-batch-demo
+
+  # ── DataSource (H2 in-memory for dev; replace with real DB for prod) ──────────
+  datasource:
+    url: jdbc:h2:mem:batchdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # ── Spring Batch ──────────────────────────────────────────────────────────────
+  batch:
+    job:
+      # Prevent auto-start on startup; we trigger jobs programmatically or via REST
+      enabled: false
+    jdbc:
+      # Let Spring Batch auto-create its metadata schema (BATCH_JOB_INSTANCE etc.)
+      initialize-schema: always
+
+  # ── H2 Console (disable in prod) ─────────────────────────────────────────────
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+logging:
+  level:
+    root: INFO
+    com.processing.batch: DEBUG
+    org.springframework.batch: INFO
