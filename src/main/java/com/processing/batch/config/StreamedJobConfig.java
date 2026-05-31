@@ -14,10 +14,15 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.file.FlatFileItemWriter;
+import org.springframework.batch.item.support.CompositeItemProcessor;
+import org.springframework.batch.item.support.CompositeItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -74,11 +79,35 @@ public class StreamedJobConfig {
                         "Simulated processing failure on item " + item.id());
             }
             Greeting processed = new Greeting(item.id(), item.message().toUpperCase());
-            log.info("  ✔ processed → [{} | {}]", processed.id(), processed.message());
+            log.info("  ✔ streamedGreetingProcessor → [{} | {}]", processed.id(), processed.message());
             return processed;
         };
     }
 
+    @Bean
+    public ItemProcessor<Greeting, Greeting> streamedGreetingEnrichedProcessor() {
+        return item -> {
+            Greeting processed = new Greeting(item.id(), item.message().toUpperCase(),"TEXT", LocalDate.now());
+            log.info("  ✔ streamedGreetingEnrichedProcessor → [{} | {} | {} | {}]", processed.id(), processed.message(),processed.format(),processed.date());
+            return processed;
+        };
+    }
+
+    @Bean
+    public CompositeItemProcessor<Greeting, Greeting> compositeProcessor(
+            ItemProcessor<Greeting, Greeting> streamedGreetingProcessor,
+            ItemProcessor<Greeting, Greeting> streamedGreetingEnrichedProcessor) {
+
+        CompositeItemProcessor<Greeting, Greeting> processor =
+                new CompositeItemProcessor<>();
+
+        processor.setDelegates(List.of(
+                streamedGreetingProcessor,
+                streamedGreetingEnrichedProcessor
+        ));
+
+        return processor;
+    }
     // ─── Writer ───────────────────────────────────────────────────────────────
 
     @Bean
@@ -90,24 +119,59 @@ public class StreamedJobConfig {
         };
     }
 
+    @Bean
+    public FlatFileItemWriter<Greeting> greetingFileWriter() {
+
+        log.info("  ── greetingFileWriter started writing ──");
+        FlatFileItemWriter<Greeting> writer =
+                new FlatFileItemWriter<>();
+
+        writer.setName("greetingFileWriter");
+
+        writer.setResource(
+                new FileSystemResource("output/greetings.txt"));
+
+        writer.setLineAggregator(greeting ->
+
+                greeting.id() + "," +
+                        greeting.message() + "," +
+                        greeting.format() + "," +
+                        greeting.date());
+        log.info("  ── greetingFileWriter completed writing ──");
+        return writer;
+    }
+
+    @Bean
+    public CompositeItemWriter<Greeting> compositeWriter(
+            ItemWriter<Greeting> streamedGreetingWriter,
+            FlatFileItemWriter<Greeting> greetingFileWriter) {
+
+        CompositeItemWriter<Greeting> writer =
+                new CompositeItemWriter<>();
+
+        writer.setDelegates(List.of(
+                streamedGreetingWriter,
+                greetingFileWriter
+        ));
+
+        return writer;
+    }
     // ─── Step ─────────────────────────────────────────────────────────────────
 
     @Bean
     public Step streamedStep(JobRepository jobRepository,
                              PlatformTransactionManager transactionManager,
                              ItemStreamReader<Greeting> streamedGreetingReader,
-                             ItemProcessor<Greeting, Greeting> streamedGreetingProcessor,
-                             ItemWriter<Greeting> streamedGreetingWriter, CustomerSkipListener customerSkipListener) {
+                             CompositeItemProcessor<Greeting, Greeting> compositeProcessor,
+                             CompositeItemWriter<Greeting> compositeWriter, CustomerSkipListener customerSkipListener) {
         return new StepBuilder("streamedStep", jobRepository)
                 .<Greeting, Greeting>chunk(CHUNK_SIZE, transactionManager)
                 .reader(streamedGreetingReader)
-                .processor(streamedGreetingProcessor)
-                .writer(streamedGreetingWriter)
+                .processor(compositeProcessor)
+                .writer(compositeWriter)
                 .faultTolerant()
                     .skipLimit(3)
                     .skip(RuntimeException.class)
-                    .retry(RuntimeException.class)
-                    .retryLimit(3)
                 .listener(customerSkipListener)
                 .build();
     }
