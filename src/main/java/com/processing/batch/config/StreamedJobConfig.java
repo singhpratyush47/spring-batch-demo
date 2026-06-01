@@ -14,16 +14,22 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.JdbcPagingItemReader;
+import org.springframework.batch.item.database.Order;
+import org.springframework.batch.item.database.support.H2PagingQueryProvider;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.batch.item.support.CompositeItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import javax.sql.DataSource;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 /**
@@ -63,6 +69,47 @@ public class StreamedJobConfig {
         return new CheckpointDemoReader(items);
     }
 
+    @Bean
+    public JdbcPagingItemReader<Greeting> streamedJDBCGreetingReader(
+            DataSource dataSource,
+            RowMapper<Greeting> greetingRowMapper) {
+
+        JdbcPagingItemReader<Greeting> reader =
+                new JdbcPagingItemReader<>();
+
+        reader.setName("greetingReader");
+
+        reader.setDataSource(dataSource);
+
+        reader.setPageSize(CHUNK_SIZE);
+
+        reader.setRowMapper(greetingRowMapper);
+
+        H2PagingQueryProvider provider =
+                new H2PagingQueryProvider();
+
+        provider.setSelectClause(
+                "SELECT ID, MESSAGE");
+
+        provider.setFromClause(
+                "FROM GREETING");
+
+        provider.setSortKeys(
+                Map.of("ID", Order.ASCENDING));
+
+        reader.setQueryProvider(provider);
+
+        return reader;
+    }
+
+    @Bean
+    public RowMapper<Greeting> greetingRowMapper() {
+        return (rs, rowNum) ->
+                new Greeting(
+                        rs.getInt("ID"),
+                        rs.getString("MESSAGE")
+                );
+    }
     // ─── Processor ────────────────────────────────────────────────────────────
 
     /**
@@ -161,12 +208,12 @@ public class StreamedJobConfig {
     @Bean
     public Step streamedStep(JobRepository jobRepository,
                              PlatformTransactionManager transactionManager,
-                             ItemStreamReader<Greeting> streamedGreetingReader,
+                             JdbcPagingItemReader<Greeting> streamedJDBCGreetingReader,
                              CompositeItemProcessor<Greeting, Greeting> compositeProcessor,
                              CompositeItemWriter<Greeting> compositeWriter, CustomerSkipListener customerSkipListener) {
         return new StepBuilder("streamedStep", jobRepository)
                 .<Greeting, Greeting>chunk(CHUNK_SIZE, transactionManager)
-                .reader(streamedGreetingReader)
+                .reader(streamedJDBCGreetingReader)
                 .processor(compositeProcessor)
                 .writer(compositeWriter)
                 .faultTolerant()
